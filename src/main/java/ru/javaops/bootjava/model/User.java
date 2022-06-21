@@ -1,15 +1,23 @@
 package ru.javaops.bootjava.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class User {
+@Getter
+@Setter
+@Entity
+@ToString(callSuper = true,exclude = {"password"})
+@Table(name="users")
+public class User  extends AbstractPersistable {
+@Column(name="email", nullable = false,unique = true)
 
     private String email;
 
@@ -19,5 +27,5 @@ public class User {
 
     private String password;
 
-    private Set&lt;Role&gt; roles;
+    private Set<Role> roles;
 }
